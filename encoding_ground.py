@@ -151,7 +151,7 @@ def main():
     parser.add_argument('-sub','--sub',help='subject number from which real fMRI data will be used', default = 'sub04', type=str)
     parser.add_argument('-r','--roi',help='brain region, from which real fMRI data will be used', default = 'EBA', type=str)
     parser.add_argument('-m','--mode',help='test or val, val returns mean correlation by using 10% of training data for validation', default = 'val', type=str)
-    parser.add_argument('-fd','--fmri_dir',help='directory containing fMRI activity', default = '/openbayes/input/input0/participants_data_v2021', type=str)
+    parser.add_argument('-fd','--fmri_dir',help='directory containing fMRI activity', default = '/home/hc/Algonauts2021/data/participants_data_v2021', type=str)
     parser.add_argument('-v','--visualize',help='visualize whole brain results in MNI space or not, only available if -roi WB', default = True, type=bool)
     parser.add_argument('-b', '--batch_size',help='number of voxel to fit at one time in case of memory constraints', default=1000, type=int)
     args = vars(parser.parse_args())

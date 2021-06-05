@@ -30,7 +30,7 @@ def main():
     
     parser.add_argument('-t','--track', help='mini_track for all ROIs, full_track for whole brain (WB)', default = 'mini_track', type=str)
     parser.add_argument('-ad','--activation_dir',help='directory containing DNN activations',default = './alexnet/', type=str)
-    parser.add_argument('-fd','--fmri_dir',help='directory containing fMRI activity', default = '/openbayes/input/input0/participants_data_v2021', type=str)
+    parser.add_argument('-fd','--fmri_dir',help='directory containing fMRI activity', default = '/home/hc/Algonauts2021/data/participants_data_v2021', type=str)
     # modified args
     parser.add_argument('-model','--model',help='model name under which predicted fMRI activity will be saved', default = 'alexnet_devkit', type=str)
     parser.add_argument('-m', '--mode', help='test or val, val returns mean correlation by using 10% of training data for validation', default='val', type=str)

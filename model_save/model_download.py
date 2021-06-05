@@ -19,6 +19,9 @@ model_urls = {
     'resnet101': 'https://download.pytorch.org/models/resnet101-5d3b4d8f.pth',
     'resnet152': 'https://download.pytorch.org/models/resnet152-b121ed2d.pth',
     'resnext101_32x8d': 'https://download.pytorch.org/models/resnext101_32x8d-8ba56ff5.pth',
+    'r3d_18': 'https://download.pytorch.org/models/r3d_18-b3b3357e.pth',
+    'mc3_18': 'https://download.pytorch.org/models/mc3_18-a90a0ba3.pth',
+    'r2plus1d_18': 'https://download.pytorch.org/models/r2plus1d_18-91a641e6.pth',
 }
 
 def cbk(a, b, c):    

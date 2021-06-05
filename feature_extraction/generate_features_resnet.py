@@ -86,7 +86,7 @@ def load_model(model_checkpoints):
 
     # from torchvision.models import resnet50, resnext101_32x8d
     from torch import hub
-    hub.set_dir("/openbayes/home/Algonauts2021_devkit/model_save")
+    hub.set_dir("/home/hc/Algonauts2021/Algo2021_hc/model_save")
     model = hub.load('facebookresearch/semi-supervised-ImageNet1K-models', "resnet50_swsl")
     # model = resnext101_32x8d()
     model_file = model_checkpoints
@@ -198,7 +198,7 @@ def do_PCA_and_save(activations_dir, save_dir, n_components):
 
 def main():
     parser = argparse.ArgumentParser(description='Feature Extraction from Alexnet and preprocessing using PCA')
-    parser.add_argument('-vdir','--video_data_dir', help='video data directory',default = '/openbayes/input/input0/AlgonautsVideos268_All_30fpsmax/', type=str)
+    parser.add_argument('-vdir','--video_data_dir', help='video data directory',default = '/home/hc/Algonauts2021/data/AlgonautsVideos268_All_30fpsmax', type=str)
     parser.add_argument('-sdir','--save_dir', help='saves processed features',default = './features_from_models/resnet', type=str)
     args = vars(parser.parse_args())
 
