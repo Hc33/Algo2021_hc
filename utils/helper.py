@@ -23,7 +23,8 @@ def saveasnii(brain_mask, nii_save_path, nii_data):
 
 
 if __name__ == "__main__":
-    a = "/openbayes/input/input0/participants_data_v2021/mini_track/sub04/EBA.pkl"
-    b = load_dict(a)
-    print(b)
-    print('ok')
+    a = r"/home/hc/Algonauts2021/Algo2021_hc/activations/resnet/swsl_resnext101_32x8d/pca_25/test_layer_3.npy"
+    import numpy as np
+    nda = np.load(a)
+    import pdb
+    pdb.set_trace()

@@ -108,19 +108,41 @@ def predict_fmri_fast(train_activations, test_activations, train_fmri, use_gpu=F
         matrix of dimensions #test_vids x #voxels
         containing predicted fMRI responses to test videos .
     """
+    """
     # MultiOutputRegressor
     from sklearn.multioutput import MultiOutputRegressor
     # from sklearn.svm import SVR  # 
-    model_svr = MultiOutputRegressor(LinearRegression(), n_jobs=-1) # 线性回归 LinearRegression
-    model_svr.fit(train_activations, train_fmri) # training [900, 100] [900, 368]
-    fmri_pred_test = model_svr.predict(test_activations)  # test
+    model_lr = MultiOutputRegressor(LinearRegression(), n_jobs=-1) # 线性回归 LinearRegression
+    num_cv = 5
+    from sklearn.model_selection import cross_validate  # 交叉验证
+    res = cross_validate(model_lr, X=train_activations, y=train_fmri, cv=num_cv, n_jobs=-1, return_estimator=True)
+    
+    test_pred_list = []
+    for idx in range(num_cv):
+        model_cv = res["estimator"][idx]  # 模型
+        test_pred = model_cv.predict(test_activations)  # 在测试集上预测
+        test_pred_list.append(test_pred)
+
+    assert len(test_pred_list)== num_cv, "Error with Line 126."
+    fmri_pred_test = np.zeros_like(test_pred_list[0], dtype=np.float32)
+    for elem in test_pred_list:  # 求和
+        fmri_pred_test += elem
+    fmri_pred_test /= num_cv  # 取平均
+    """
+    from sklearn.linear_model import MultiTaskLassoCV, MultiTaskElasticNetCV
+    reg = MultiTaskElasticNetCV(cv=5, random_state=0, n_jobs=-1).fit(train_activations, train_fmri)
+    score = reg.score(train_activations, train_fmri)
+    print(f"R^2 in Training is {score}.")
+    fmri_pred_test = reg.predict(test_activations)
+
+    # model_svr.fit(train_activations, train_fmri) # training [900, 100] [900, 368]
+    # fmri_pred_test = model_svr.predict(test_activations)  # test
 
     # reg = OLS_pytorch(use_gpu)
     # # Step 2.学习feature至fMRI Response的映射关系θ
     # reg.fit(train_activations, train_fmri.T)  # 训练
     # # Step 3.使用θ来预测测试视频（处理成feature）的响应
     # fmri_pred_test = reg.predict(test_activations)  # 预测
-    
     return fmri_pred_test
 
 
